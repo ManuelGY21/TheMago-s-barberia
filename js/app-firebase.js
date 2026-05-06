@@ -322,7 +322,7 @@ function loadPOSTerminal() {
     loadServicios(servicios => {
         if (!servicesGrid) return;
         servicesGrid.innerHTML = servicios.map(servicio => `
-            <button class="item-btn" onclick="addToCart('${servicio.nombre.replace(/'/g, "\\'")}', ${Number(servicio.precio)}, '${servicio.id}')">
+            <button class="item-btn" onclick="addToCart('${servicio.nombre.replace(/'/g, "\\'")}', ${Number(servicio.precio)}, '${servicio.id}', this)">
                 <i class="fas fa-cut"></i>
                 <div class="item-btn-name">${servicio.nombre}</div>
                 <div class="item-btn-price">S/ ${Number(servicio.precio).toFixed(2)}</div>
@@ -333,7 +333,7 @@ function loadPOSTerminal() {
     loadProductos(productos => {
         if (!productsGrid) return;
         productsGrid.innerHTML = productos.map(producto => `
-            <button class="item-btn" onclick="addToCart('${producto.nombre.replace(/'/g, "\\'")}', ${Number(producto.precio)}, '${producto.id}')">
+            <button class="item-btn" onclick="addToCart('${producto.nombre.replace(/'/g, "\\'")}', ${Number(producto.precio)}, '${producto.id}', this)">
                 <i class="fas fa-shopping-bag"></i>
                 <div class="item-btn-name">${producto.nombre}</div>
                 <div class="item-btn-price">S/ ${Number(producto.precio).toFixed(2)}</div>
@@ -342,12 +342,18 @@ function loadPOSTerminal() {
     });
 }
 
-function addToCart(nombre, precio, id) {
+function addToCart(nombre, precio, id, button) {
     const existingItem = cart.find(item => item.id === id);
     if (existingItem) {
         existingItem.cantidad++;
     } else {
         cart.push({ id, nombre, precio, cantidad: 1 });
+    }
+    if (button) {
+        button.classList.remove("added");
+        void button.offsetWidth;
+        button.classList.add("added");
+        setTimeout(() => button.classList.remove("added"), 650);
     }
     updateCart();
 }
