@@ -627,6 +627,10 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    * {
+        max-width: 100%;
+    }
+
     html,
     body {
         height: auto;
@@ -705,12 +709,18 @@ html, body {
 
     .dashboard-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
+        width: 100%;
+        min-width: 0;
     }
 
     .inventory-card,
     .pos-sales-card,
     .monthly-profit-card {
         grid-column: 1 / -1;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
     }
 
     .inventory-card .card-header {
@@ -724,7 +734,11 @@ html, body {
     .inventory-card,
     .pos-sales-card,
     .monthly-profit-card {
-        padding: 15px;
+        padding: 12px;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
     }
 
     .monthly-chart {
@@ -788,6 +802,12 @@ html, body {
     .inventory-card .inventory-table td {
         display: block;
         width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .inventory-card .inventory-table table {
+        min-width: 0 !important;
     }
 
     .inventory-card .inventory-table thead {
@@ -836,5 +856,6 @@ html, body {
         min-width: 0;
         grid-template-columns: 28px repeat(6, minmax(22px, 1fr));
         gap: 6px;
+        overflow: hidden;
     }
 }
