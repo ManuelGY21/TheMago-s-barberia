@@ -778,23 +778,52 @@ html, body {
     }
 
     .inventory-card .inventory-table {
-        overflow-x: hidden;
+        overflow-x: visible;
     }
 
-    .inventory-card .inventory-table table {
-        min-width: 0;
-        table-layout: fixed;
-    }
-
-    .inventory-card .inventory-table th,
+    .inventory-card .inventory-table table,
+    .inventory-card .inventory-table thead,
+    .inventory-card .inventory-table tbody,
+    .inventory-card .inventory-table tr,
     .inventory-card .inventory-table td {
-        white-space: normal;
-        word-break: break-word;
+        display: block;
+        width: 100%;
     }
 
-    .inventory-card .inventory-table th:nth-child(2),
-    .inventory-card .inventory-table td:nth-child(2) {
+    .inventory-card .inventory-table thead {
         display: none;
+    }
+
+    .inventory-card .inventory-table tr {
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 193, 7, 0.08);
+        border-radius: 8px;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    .inventory-card .inventory-table td {
+        border-bottom: none;
+        padding: 4px 0;
+    }
+
+    .inventory-card .inventory-table td:nth-child(1) {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .inventory-card .inventory-table td:nth-child(2) {
+        color: var(--text-secondary);
+        font-size: 12px;
+    }
+
+    .inventory-card .inventory-table td:nth-child(3)::before {
+        content: "Stock: ";
+        color: var(--text-secondary);
+    }
+
+    .inventory-card .inventory-table td:nth-child(4) {
+        padding-top: 8px;
     }
 
     .inventory-table td,
@@ -804,6 +833,8 @@ html, body {
 
     .monthly-chart {
         height: 220px;
-        min-width: 520px;
+        min-width: 0;
+        grid-template-columns: 28px repeat(6, minmax(22px, 1fr));
+        gap: 6px;
     }
 }
