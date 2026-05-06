@@ -23,6 +23,7 @@ html, body {
     color: var(--text);
     height: 100%;
     overflow: hidden;
+    max-width: 100%;
 }
 
 .container {
@@ -637,6 +638,8 @@ html, body {
         flex-direction: column;
         min-height: 100vh;
         height: auto;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .sidebar {
@@ -657,19 +660,21 @@ html, body {
     }
 
     .nav-menu {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
         margin: 0;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 4px;
+        width: 100%;
     }
 
     .nav-link {
-        white-space: nowrap;
+        justify-content: center;
+        white-space: normal;
         padding: 8px 12px;
         margin: 0;
         font-size: 12px;
+        min-height: 42px;
+        text-align: center;
     }
 
     .nav-link i {
@@ -683,12 +688,19 @@ html, body {
     .main-content {
         overflow-y: auto;
         padding: 14px;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .top-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+    }
+
+    .top-header h2 {
+        font-size: 30px;
+        line-height: 1.1;
     }
 
     .dashboard-grid {
@@ -699,6 +711,12 @@ html, body {
     .pos-sales-card,
     .monthly-profit-card {
         grid-column: 1 / -1;
+    }
+
+    .inventory-card .card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
     }
 
     .stat-card,
@@ -757,6 +775,26 @@ html, body {
 
     .inventory-table table {
         min-width: 520px;
+    }
+
+    .inventory-card .inventory-table {
+        overflow-x: hidden;
+    }
+
+    .inventory-card .inventory-table table {
+        min-width: 0;
+        table-layout: fixed;
+    }
+
+    .inventory-card .inventory-table th,
+    .inventory-card .inventory-table td {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .inventory-card .inventory-table th:nth-child(2),
+    .inventory-card .inventory-table td:nth-child(2) {
+        display: none;
     }
 
     .inventory-table td,
