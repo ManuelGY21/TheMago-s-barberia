@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - The Mago's</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">THE MAGO'S</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="pos.html" class="nav-link"><i class="fas fa-cash-register"></i> POS Terminal</a></li>
+                <li><a href="inventory.html" class="nav-link"><i class="fas fa-box"></i> Inventario</a></li>
+                <li><a href="staff.html" class="nav-link active"><i class="fas fa-users"></i> Personal</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <h2>Personal</h2>
+                <button class="btn-new-appointment"><i class="fas fa-plus"></i> Agregar Personal</button>
+            </header>
+
+            <div class="staff-container">
+                <div class="staff-grid" id="staffGrid">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

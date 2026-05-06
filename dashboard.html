@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>The Mago's - BarberÃ­a</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">THE MAGO'S</h1>
+                <p class="subtitle">PREMIUM MANAGEMENT</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="pos.html" class="nav-link"><i class="fas fa-cash-register"></i> POS Terminal</a></li>
+                <li><a href="inventory.html" class="nav-link"><i class="fas fa-box"></i> Inventario</a></li>
+                <li><a href="staff.html" class="nav-link"><i class="fas fa-users"></i> Personal</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <h2>Dashboard</h2>
+                <p class="subtitle-header">Resumen de ventas, clientes e inventario de hoy.</p>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Total Revenue Card -->
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>Total de hoy</h3>
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="card-body">
+                        <p class="stat-value" id="totalRevenue">S/ 0.00</p>
+                        <p class="stat-change positive" id="revenueChange">Ventas registradas hoy</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>Clientes de hoy</h3>
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-body">
+                        <p class="stat-value" id="clientsToday">0</p>
+                        <p class="stat-change">Atenciones registradas en POS</p>
+                    </div>
+                </div>
+
+<!-- Monthly Revenue Chart -->
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>Monthly Revenue</h3>
+                        <a href="#" class="view-report">View Report <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    <canvas id="revenueChart" class="chart"></canvas>
+                </div>
+
+                <!-- Revenue Split -->
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>Revenue Split</h3>
+                    </div>
+                    <canvas id="splitChart" class="chart"></canvas>
+                </div>
+
+                <!-- Inventory Status -->
+                <div class="inventory-card">
+                    <div class="card-header">
+                        <h3>Resumen de inventario</h3>
+                        <input type="search" placeholder="Buscar productos..." class="search-input">
+                    </div>
+                    <div class="inventory-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>CategorÃ­a</th>
+                                    <th>Stock</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pos-sales-card">
+                    <div class="card-header">
+                        <h3>Detalle del día</h3>
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="inventory-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>Método</th>
+                                    <th>Detalle</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="posSalesTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="js/app-firebase.js"></script>
+</body>
+</html>
