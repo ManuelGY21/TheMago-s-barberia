@@ -468,7 +468,7 @@ html, body {
 }
 
 .ticket-client label,
-.sales-date-control label {
+.sales-filter-field label {
     display: block;
     color: var(--text-secondary);
     font-size: 12px;
@@ -609,46 +609,36 @@ html, body {
     max-width: 200px;
 }
 
-.sales-date-control {
-    min-width: 230px;
+.sales-filters {
+    display: grid;
+    grid-template-columns: minmax(160px, 0.9fr) minmax(180px, 1.2fr) minmax(160px, 1fr);
+    gap: 10px;
+    width: min(100%, 620px);
     background: rgba(255, 193, 7, 0.08);
     border: 1px solid rgba(255, 193, 7, 0.22);
     border-radius: 10px;
     padding: 12px;
 }
 
-.sales-date-control label {
+.sales-filter-field label {
     color: var(--primary);
 }
 
-.sales-date-control label i {
-    margin-right: 6px;
-}
-
-.sales-date-picker {
-    position: relative;
-}
-
-.sales-date-picker::after {
-    content: "\f073";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--primary);
-    pointer-events: none;
-}
-
-.sales-date-picker .date-filter {
+.sales-filter-field .date-filter,
+.filter-input {
     width: 100%;
     max-width: none;
-    padding: 12px 42px 12px 12px;
+    padding: 12px;
     background-color: var(--dark);
     border-color: rgba(255, 193, 7, 0.35);
+    border-radius: 6px;
+    color: var(--text);
     font-weight: 700;
     color-scheme: dark;
+}
+
+.filter-input::placeholder {
+    color: var(--text-secondary);
 }
 
 .appointments-list {
@@ -785,6 +775,11 @@ html, body {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+    }
+
+    .sales-filters {
+        grid-template-columns: 1fr;
+        width: 100%;
     }
 
     .top-header h2 {

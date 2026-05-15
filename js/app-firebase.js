@@ -128,6 +128,8 @@ const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
 const dashboardInventorySearch = document.getElementById("dashboardInventorySearch");
 const salesDateFilter = document.getElementById("salesDateFilter");
+const salesNameFilter = document.getElementById("salesNameFilter");
+const salesPaymentFilter = document.getElementById("salesPaymentFilter");
 const customerNameInput = document.getElementById("customerName");
 let cart = [];
 
@@ -306,12 +308,13 @@ function loadDashboard() {
     loadVentas(ventas => {
         const selectedDate = salesDateFilter?.value || todayKey();
         const ventasDelDia = ventas.filter(venta => dateInputKey(venta.fecha) === selectedDate);
-        const totalRevenue = ventasDelDia.reduce((sum, venta) => sum + Number(venta.total || 0), 0);
+        const ventasFiltradas = filterSales(ventasDelDia);
+        const totalRevenue = ventasFiltradas.reduce((sum, venta) => sum + Number(venta.total || 0), 0);
         const target = document.getElementById("totalRevenue");
         if (target) target.textContent = `S/ ${totalRevenue.toFixed(2)}`;
         const clientsTarget = document.getElementById("clientsToday");
-        if (clientsTarget) clientsTarget.textContent = ventasDelDia.length;
-        if (currentPage() === "clientes.html" || currentPage() === "dashboard.html") renderPOSSalesRows(ventasDelDia);
+        if (clientsTarget) clientsTarget.textContent = ventasFiltradas.length;
+        if (currentPage() === "clientes.html" || currentPage() === "dashboard.html") renderPOSSalesRows(ventasFiltradas);
         renderMonthlyRevenueChart(ventas);
     });
 
@@ -456,6 +459,19 @@ function filterProducts(productos, term = "", category = "") {
             producto.categoria?.toLowerCase().includes(query);
         const matchesCategory = !category || producto.categoria === category;
         return matchesText && matchesCategory;
+    });
+}
+
+function filterSales(ventas) {
+    const nameQuery = salesNameFilter?.value.trim().toLowerCase() || "";
+    const paymentQuery = salesPaymentFilter?.value || "";
+
+    return ventas.filter(venta => {
+        const cliente = (venta.cliente || "Cliente sin nombre").toLowerCase();
+        const metodo = venta.metodo_pago || "";
+        const matchesName = !nameQuery || cliente.includes(nameQuery);
+        const matchesPayment = !paymentQuery || metodo === paymentQuery;
+        return matchesName && matchesPayment;
     });
 }
 
@@ -614,6 +630,8 @@ if (searchInput) searchInput.addEventListener("input", loadInventory);
 if (categoryFilter) categoryFilter.addEventListener("change", loadInventory);
 if (dashboardInventorySearch) dashboardInventorySearch.addEventListener("input", loadDashboard);
 if (salesDateFilter) salesDateFilter.addEventListener("change", loadDashboard);
+if (salesNameFilter) salesNameFilter.addEventListener("input", loadDashboard);
+if (salesPaymentFilter) salesPaymentFilter.addEventListener("change", loadDashboard);
 
 if (canUseFirebase) {
     [serviciosRef, productosRef, citasRef, ventasRef].forEach(ref => ref.on("value", refreshCurrentPage));
