@@ -1,4 +1,4 @@
-﻿// Firebase Configuration
+// Firebase Configuration
 // Proyecto conectado: barberia-e06e6.
 // La app usa Realtime Database por REST para no depender de apiKey/appId.
 const firebaseRestUrl = "https://barberia-e06e6-default-rtdb.firebaseio.com";
@@ -419,14 +419,14 @@ function renderInventoryRows(productos, compact = false) {
     if (!inventoryTableBody) return;
     inventoryTableBody.innerHTML = productos.map(producto => {
         const stock = Number(producto.stock || 0);
-        const status = stock > 5 ? "OPTIMAL" : "LOW";
+        const status = stock > 5 ? "ÓPTIMO" : "BAJO";
         const badge = stock > 5 ? "optimal" : "warning";
         if (compact) {
             return `
                 <tr>
                     <td><i class="fas fa-droplet"></i> ${producto.nombre}</td>
                     <td>${producto.categoria || "N/A"}</td>
-                    <td>${stock} units</td>
+                    <td>${stock} unidades</td>
                     <td><span class="badge ${badge}">${status}</span></td>
                 </tr>
             `;
@@ -436,7 +436,7 @@ function renderInventoryRows(productos, compact = false) {
                 <td>${producto.nombre}</td>
                 <td>${producto.categoria || "N/A"}</td>
                 <td>S/ ${Number(producto.precio || 0).toFixed(2)}</td>
-                <td>${stock} units</td>
+                <td>${stock} unidades</td>
                 <td><span class="badge ${badge}">${status}</span></td>
                 <td>
                     <button class="btn-delete-row" onclick="eliminarProducto('${producto.id}')" title="Eliminar producto">

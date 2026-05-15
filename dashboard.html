@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -13,11 +13,11 @@
         <nav class="sidebar">
             <div class="sidebar-header">
                 <h1 class="logo">THE MAGO'S</h1>
-                <p class="subtitle">PREMIUM MANAGEMENT</p>
+                <p class="subtitle">GESTIÓN PREMIUM</p>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-                <li><a href="pos.html" class="nav-link"><i class="fas fa-cash-register"></i> POS Terminal</a></li>
+                <li><a href="index.html" class="nav-link active"><i class="fas fa-chart-line"></i> Panel</a></li>
+                <li><a href="pos.html" class="nav-link"><i class="fas fa-cash-register"></i> Caja</a></li>
                 <li><a href="inventory.html" class="nav-link"><i class="fas fa-box"></i> Inventario</a></li>
                 <li><a href="staff.html" class="nav-link"><i class="fas fa-users"></i> Personal</a></li>
             </ul>
@@ -25,12 +25,12 @@
 
         <main class="main-content">
             <header class="top-header">
-                <h2>Dashboard</h2>
+                <h2>Panel</h2>
                 <p class="subtitle-header">Resumen de ventas, clientes e inventario de hoy.</p>
             </header>
 
             <div class="dashboard-grid">
-                <!-- Total Revenue Card -->
+                <!-- Tarjeta de ventas del día -->
                 <div class="stat-card">
                     <div class="card-header">
                         <h3>Total de hoy</h3>
@@ -53,24 +53,24 @@
                     </div>
                 </div>
 
-<!-- Monthly Revenue Chart -->
+<!-- Ventas mensuales Chart -->
                 <div class="chart-card">
                     <div class="card-header">
-                        <h3>Monthly Revenue</h3>
-                        <a href="#" class="view-report">View Report <i class="fas fa-chevron-right"></i></a>
+                        <h3>Ventas mensuales</h3>
+                        <a href="#" class="view-report">Ver detalle <i class="fas fa-chevron-right"></i></a>
                     </div>
                     <canvas id="revenueChart" class="chart"></canvas>
                 </div>
 
-                <!-- Revenue Split -->
+                <!-- Distribución de ingresos -->
                 <div class="chart-card">
                     <div class="card-header">
-                        <h3>Revenue Split</h3>
+                        <h3>Distribución de ingresos</h3>
                     </div>
                     <canvas id="splitChart" class="chart"></canvas>
                 </div>
 
-                <!-- Inventory Status -->
+                <!-- Estado de inventario -->
                 <div class="inventory-card">
                     <div class="card-header">
                         <h3>Resumen de inventario</h3>

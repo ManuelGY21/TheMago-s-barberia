@@ -56,8 +56,8 @@ async function loadDashboard() {
             <tr>
                 <td><i class="fas fa-droplet"></i> ${p.nombre}</td>
                 <td>${p.categoria}</td>
-                <td>${p.stock} units</td>
-                <td><span class="badge ${p.stock > 5 ? 'optimal' : 'warning'}">${p.stock > 5 ? 'OPTIMAL' : 'LOW'}</span></td>
+                <td>${p.stock} unidades</td>
+                <td><span class="badge ${p.stock > 5 ? 'optimal' : 'warning'}">${p.stock > 5 ? 'ÓPTIMO' : 'BAJO'}</span></td>
                 <td><i class="fas fa-ellipsis-h"></i></td>
             </tr>
         `).join('');
@@ -138,8 +138,8 @@ async function loadInventory() {
                 <td>${p.nombre}</td>
                 <td>${p.categoria}</td>
                 <td>S/ ${p.precio.toFixed(2)}</td>
-                <td>${p.stock} units</td>
-                <td><span class="badge ${p.stock > 5 ? 'optimal' : 'warning'}">${p.stock > 5 ? 'OPTIMAL' : 'LOW'}</span></td>
+                <td>${p.stock} unidades</td>
+                <td><span class="badge ${p.stock > 5 ? 'optimal' : 'warning'}">${p.stock > 5 ? 'ÓPTIMO' : 'BAJO'}</span></td>
                 <td><i class="fas fa-ellipsis-h"></i></td>
             </tr>
         `).join('');

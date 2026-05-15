@@ -12,11 +12,11 @@
         <nav class="sidebar">
             <div class="sidebar-header">
                 <h1 class="logo">THE MAGO'S</h1>
-                <p class="subtitle">PREMIUM MANAGEMENT</p>
+                <p class="subtitle">GESTIÓN PREMIUM</p>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-                <li><a href="pos-firebase.html" class="nav-link"><i class="fas fa-cash-register"></i> POS Terminal</a></li>
+                <li><a href="index.html" class="nav-link"><i class="fas fa-chart-line"></i> Panel</a></li>
+                <li><a href="pos-firebase.html" class="nav-link"><i class="fas fa-cash-register"></i> Caja</a></li>
                 <li><a href="clientes.html" class="nav-link active"><i class="fas fa-users"></i> Clientes</a></li>
                 <li><a href="inventory-firebase.html" class="nav-link"><i class="fas fa-box"></i> Inventario</a></li>
             </ul>
@@ -29,8 +29,10 @@
                     <p class="subtitle-header">Atenciones generadas desde el POS por día.</p>
                 </div>
                 <div class="sales-date-control">
-                    <label for="salesDateFilter">Calendario</label>
-                    <input type="date" id="salesDateFilter" class="date-filter">
+                    <label for="salesDateFilter"><i class="fas fa-calendar-days"></i> Seleccionar día</label>
+                    <div class="sales-date-picker">
+                        <input type="date" id="salesDateFilter" class="date-filter">
+                    </div>
                 </div>
             </header>
 
