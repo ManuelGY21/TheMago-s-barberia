@@ -26,7 +26,11 @@
             <header class="top-header">
                 <div>
                     <h2>Clientes</h2>
-                    <p class="subtitle-header">Atenciones generadas desde el POS durante el día.</p>
+                    <p class="subtitle-header">Atenciones generadas desde el POS por día.</p>
+                </div>
+                <div class="sales-date-control">
+                    <label for="salesDateFilter">Calendario</label>
+                    <input type="date" id="salesDateFilter" class="date-filter">
                 </div>
             </header>
 
@@ -63,6 +67,7 @@
                             <thead>
                                 <tr>
                                     <th>Hora</th>
+                                    <th>Cliente</th>
                                     <th>Método</th>
                                     <th>Servicio / producto</th>
                                     <th>Total</th>

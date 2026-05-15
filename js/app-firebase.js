@@ -127,6 +127,8 @@ const productForm = document.getElementById("productForm");
 const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
 const dashboardInventorySearch = document.getElementById("dashboardInventorySearch");
+const salesDateFilter = document.getElementById("salesDateFilter");
+const customerNameInput = document.getElementById("customerName");
 let cart = [];
 
 function loadCollection(ref, name, callback) {
@@ -174,9 +176,9 @@ function loadVentas(callback) {
     loadCollection(ventasRef, "ventas", callback);
 }
 
-function agregarVenta(subtotal, impuesto, total, metodo_pago, items = []) {
+function agregarVenta(subtotal, impuesto, total, metodo_pago, items = [], cliente = "") {
     const id = canUseFirebase ? ventasRef.push().key : nextId("v");
-    const venta = { id, fecha: new Date().toISOString(), subtotal, impuesto, total, metodo_pago, items };
+    const venta = { id, fecha: new Date().toISOString(), cliente, subtotal, impuesto, total, metodo_pago, items };
     if (canUseFirebase) {
         ventasRef.child(id).set(venta);
     } else if (canUseFirebaseRest) {
@@ -302,14 +304,14 @@ function eliminarVenta(id) {
 
 function loadDashboard() {
     loadVentas(ventas => {
-        const today = new Date().toDateString();
-        const ventasHoy = ventas.filter(venta => new Date(venta.fecha).toDateString() === today);
-        const totalRevenue = ventasHoy.reduce((sum, venta) => sum + Number(venta.total || 0), 0);
+        const selectedDate = salesDateFilter?.value || todayKey();
+        const ventasDelDia = ventas.filter(venta => dateInputKey(venta.fecha) === selectedDate);
+        const totalRevenue = ventasDelDia.reduce((sum, venta) => sum + Number(venta.total || 0), 0);
         const target = document.getElementById("totalRevenue");
         if (target) target.textContent = `S/ ${totalRevenue.toFixed(2)}`;
         const clientsTarget = document.getElementById("clientsToday");
-        if (clientsTarget) clientsTarget.textContent = ventasHoy.length;
-        if (currentPage() === "clientes.html") renderPOSSalesRows(ventasHoy);
+        if (clientsTarget) clientsTarget.textContent = ventasDelDia.length;
+        if (currentPage() === "clientes.html" || currentPage() === "dashboard.html") renderPOSSalesRows(ventasDelDia);
         renderMonthlyRevenueChart(ventas);
     });
 
@@ -392,6 +394,7 @@ function procesarPago(metodoPago) {
         return;
     }
 
+    const cliente = customerNameInput?.value.trim() || "Cliente sin nombre";
     const subtotal = cart.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
     const tax = 0;
     const total = subtotal;
@@ -404,11 +407,12 @@ function procesarPago(metodoPago) {
         total: item.precio * item.cantidad
     }));
 
-    agregarVenta(subtotal, tax, total, metodoPago, ventaItems);
+    agregarVenta(subtotal, tax, total, metodoPago, ventaItems, cliente);
     cart.forEach(item => updateProductoStock(item.id, item.cantidad));
     cart = [];
+    if (customerNameInput) customerNameInput.value = "";
     updateCart();
-    alert(`Venta registrada\nTotal: S/ ${total.toFixed(2)}`);
+    alert(`Venta registrada\nCliente: ${cliente}\nTotal: S/ ${total.toFixed(2)}`);
 }
 
 function renderInventoryRows(productos, compact = false) {
@@ -462,7 +466,7 @@ function renderPOSSalesRows(ventas) {
     if (orderedSales.length === 0) {
         posSalesTableBody.innerHTML = `
             <tr>
-                <td colspan="5">Todavia no hay ventas registradas en el POS hoy.</td>
+                <td colspan="6">Todavia no hay ventas registradas en este dia.</td>
             </tr>
         `;
         return;
@@ -476,6 +480,7 @@ function renderPOSSalesRows(ventas) {
         return `
             <tr>
                 <td>${new Date(venta.fecha).toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" })}</td>
+                <td>${venta.cliente || "Cliente sin nombre"}</td>
                 <td>${venta.metodo_pago || "N/A"}</td>
                 <td>${detail}</td>
                 <td>S/ ${Number(venta.total || 0).toFixed(2)}</td>
@@ -488,6 +493,20 @@ function renderPOSSalesRows(ventas) {
         `;
     }).join("");
 }
+
+function todayKey() {
+    return dateInputKey(new Date().toISOString());
+}
+
+function dateInputKey(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
 function renderMonthlyRevenueChart(ventas) {
     if (!monthlyRevenueChart) return;
     const months = {};
@@ -573,6 +592,10 @@ function refreshCurrentPage() {
 
 document.addEventListener("DOMContentLoaded", refreshCurrentPage);
 
+if (salesDateFilter && !salesDateFilter.value) {
+    salesDateFilter.value = todayKey();
+}
+
 if (productForm) {
     productForm.addEventListener("submit", event => {
         event.preventDefault();
@@ -590,6 +613,7 @@ if (productForm) {
 if (searchInput) searchInput.addEventListener("input", loadInventory);
 if (categoryFilter) categoryFilter.addEventListener("change", loadInventory);
 if (dashboardInventorySearch) dashboardInventorySearch.addEventListener("input", loadDashboard);
+if (salesDateFilter) salesDateFilter.addEventListener("change", loadDashboard);
 
 if (canUseFirebase) {
     [serviciosRef, productosRef, citasRef, ventasRef].forEach(ref => ref.on("value", refreshCurrentPage));
