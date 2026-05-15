@@ -614,6 +614,8 @@ html, body {
     grid-template-columns: minmax(160px, 0.9fr) minmax(180px, 1.2fr) minmax(160px, 1fr);
     gap: 10px;
     width: min(100%, 620px);
+    max-width: 100%;
+    min-width: 0;
     background: rgba(255, 193, 7, 0.08);
     border: 1px solid rgba(255, 193, 7, 0.22);
     border-radius: 10px;
@@ -632,6 +634,7 @@ html, body {
 .filter-input {
     width: 100%;
     max-width: none;
+    min-width: 0;
     padding: 12px;
     background-color: var(--dark);
     border-color: rgba(255, 193, 7, 0.35);
@@ -782,15 +785,27 @@ html, body {
         gap: 14px;
         margin-bottom: 18px;
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
     }
 
     .sales-filters {
         grid-template-columns: 1fr;
-        width: 100%;
+        width: auto;
+        inline-size: 100%;
+        max-width: calc(100vw - 28px);
+        min-width: 0;
         gap: 12px;
-        padding: 14px;
+        padding: 12px;
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.04);
+        overflow: hidden;
+    }
+
+    .sales-filter-field {
+        width: 100%;
+        min-width: 0;
     }
 
     .sales-filter-field label {
@@ -800,6 +815,10 @@ html, body {
 
     .sales-filter-field .date-filter,
     .filter-input {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
         min-height: 46px;
         font-size: 14px;
         padding: 12px;
@@ -965,7 +984,8 @@ html, body {
 
 @media (max-width: 420px) {
     .sales-filters {
-        padding: 12px;
+        max-width: calc(100vw - 24px);
+        padding: 10px;
         gap: 10px;
     }
 
